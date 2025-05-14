@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ver Notas</title>
+</head>
+<body>
+    <h2>Notas Registradas</h2>
+    <table border="1" id="tablaNotas">
+        <tr>
+            <th>ID</th>
+            <th>Estudiante</th>
+            <th>Materia</th>
+            <th>Nota</th>
+        </tr>
+    </table>
+
+    <script>
+        fetch('http://localhost:5000/api/notas')
+            .then(res => res.json())
+            .then(notas => {
+                const tabla = document.getElementById('tablaNotas');
+                notas.forEach(nota => {
+                    tabla.innerHTML += `
+                        <tr>
+                            <td>${nota.id}</td>
+                            <td>${nota.estudiante}</td>
+                            <td>${nota.materia}</td>
+                            <td>${nota.nota}</td>
+                        </tr>`;
+                });
+            });
+    </script>
+</body>
+</html>

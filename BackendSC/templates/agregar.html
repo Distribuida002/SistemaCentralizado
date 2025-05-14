@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agregar Nota</title>
+</head>
+<body>
+    <h2>Agregar Nota</h2>
+    <form onsubmit="agregarNota(event)">
+        Estudiante: <input type="text" id="estudiante"><br>
+        Materia: <input type="text" id="materia"><br>
+        Nota: <input type="number" id="nota"><br>
+        <button type="submit">Guardar</button>
+    </form>
+
+    <script>
+        function agregarNota(e) {
+            e.preventDefault();
+            fetch('http://localhost:5000/api/agregar', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    estudiante: document.getElementById('estudiante').value,
+                    materia: document.getElementById('materia').value,
+                    nota: parseFloat(document.getElementById('nota').value)
+                })
+            }).then(res => res.json())
+              .then(data => {
+                  alert(data.mensaje);
+              });
+        }
+    </script>
+</body>
+</html>
